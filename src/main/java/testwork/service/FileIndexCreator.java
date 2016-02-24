@@ -13,30 +13,25 @@ import java.util.Locale;
 
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import testwork.index.IndexCreator;
+import testwork.exception.ResourceNotFoundException;
 import testwork.index.LocaleIndexCreator;
 
-public class FileIndexCreator implements IndexCreator, LocaleIndexCreator {
+public class FileIndexCreator implements LocaleIndexCreator {
 
     public static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileIndexCreator.class);
+    protected Trie<String, List<Long>> trie = new PatriciaTrie<List<Long>>();
 
-    Trie<String, List<Long>> trie = new PatriciaTrie<List<Long>>();
-
-    public void create(String fileName) {
+    public void create(String fileName) throws ResourceNotFoundException {
         create(fileName, DEFAULT_LOCALE);
     }
 
-    public void create(String fileName, Locale locale) {
+    public void create(String fileName, Locale locale) throws ResourceNotFoundException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             createFromFile(reader, locale);
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-            throw new RuntimeException(e);
+            throw new ResourceNotFoundException(e);
         }
     }
 
@@ -57,12 +52,12 @@ public class FileIndexCreator implements IndexCreator, LocaleIndexCreator {
                     putWordtoTrie(currentWord, pos+firstIndex);
                 }
             }
-            pos += currentLine.getBytes().length;
+            pos += currentLine.length();
         }
     }
 
-    public Trie<String, List<Long>> getTrie() {
-        return trie;
+    public List<Long> findWordPositions(String word) {
+        return trie.get(word);
     }
 
     private void putWordtoTrie(String key, Long pos) {

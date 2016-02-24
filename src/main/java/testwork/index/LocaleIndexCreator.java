@@ -1,8 +1,12 @@
 package testwork.index;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Locale;
 
-public interface LocaleIndexCreator {
+import testwork.exception.ResourceNotFoundException;
 
-    void create(String resourceName, Locale locale);
+public interface LocaleIndexCreator extends IndexCreator {
+
+    void create(String resourceName, Locale locale) throws ResourceNotFoundException;
 }

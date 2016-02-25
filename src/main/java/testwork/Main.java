@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.LocaleUtils;
 
-import testwork.exception.ResourceNotFoundException;
+import testwork.exception.SourceNotFoundException;
 
 public class Main {
 
@@ -28,7 +28,7 @@ public class Main {
             } else {
                 index.readIndex(filename);
             }
-        } catch (ResourceNotFoundException e) {
+        } catch (SourceNotFoundException e) {
             LOGGER.severe(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }

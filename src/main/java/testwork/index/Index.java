@@ -2,7 +2,7 @@ package testwork.index;
 
 import java.util.Set;
 
-import testwork.exception.ResourceNotFoundException;
+import testwork.exception.SourceNotFoundException;
 
 /**
  * Working with resource, can create index from source and search by it
@@ -13,7 +13,7 @@ public interface Index {
      * Create index from source
      * @param sourceName
      */
-    void create(String sourceName) throws ResourceNotFoundException;
+    void create(String sourceName) throws SourceNotFoundException;
 
     /**
      * Find all word positions

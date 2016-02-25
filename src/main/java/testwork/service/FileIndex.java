@@ -14,7 +14,7 @@ import java.util.Set;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
-import testwork.exception.ResourceNotFoundException;
+import testwork.exception.SourceNotFoundException;
 import testwork.index.LocaleIndex;
 
 public class FileIndex implements LocaleIndex {
@@ -24,16 +24,16 @@ public class FileIndex implements LocaleIndex {
     protected Trie<String, Set<Integer>> trie = new PatriciaTrie<>();
 
     @Override
-    public void create(String fileName) throws ResourceNotFoundException {
+    public void create(String fileName) throws SourceNotFoundException {
         create(fileName, DEFAULT_LOCALE);
     }
 
     @Override
-    public void create(String fileName, Locale locale) throws ResourceNotFoundException {
+    public void create(String fileName, Locale locale) throws SourceNotFoundException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             createFromFile(reader, locale);
         } catch (IOException e) {
-            throw new ResourceNotFoundException(e);
+            throw new SourceNotFoundException(e);
         }
     }
 

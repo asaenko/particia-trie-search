@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.collections4.Trie;
 import org.junit.Before;
@@ -20,16 +19,14 @@ public class IndexTestEnglish {
 
     private static final String TEST_STRING = "!fd [addfgd] s-b,   fdgfd. \n  zzzD ojgdfgsd. fd";
 
-    private static final Locale RUSSIAN_LOCALE = new Locale("ru", "RU");;
-
     private Trie<String, List<Long>> trie;
 
     @Before
     public void setup() throws IOException {
         BufferedReader reader = new BufferedReader(new StringReader(TEST_STRING));
-        FileIndexCreator indexCreator = new FileIndexCreator();
-        indexCreator.createFromFile(reader, FileIndexCreator.DEFAULT_LOCALE);
-        trie = indexCreator.trie;
+        FileIndex index = new FileIndex();
+        index.createFromFile(reader, FileIndex.DEFAULT_LOCALE);
+        trie = index.trie;
     }
 
     @Test
@@ -42,15 +39,5 @@ public class IndexTestEnglish {
     public void testGetIndexForWord() {
         assertEquals(new ArrayList<>(asList(20L)), trie.get("fdgfd"));
         assertEquals(new ArrayList<>(asList(1L, 44L)), trie.get("fd"));
-    }
-
-    @Test
-    public void testRussianLocale() throws IOException {
-        BufferedReader reader = new BufferedReader(new StringReader(TEST_STRING));
-        FileIndexCreator indexCreator = new FileIndexCreator();
-        indexCreator.createFromFile(reader, RUSSIAN_LOCALE);
-        trie = indexCreator.trie;
-        assertNotNull(trie);
-        assertEquals(6, trie.size());
     }
 }

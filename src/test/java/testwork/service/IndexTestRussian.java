@@ -26,9 +26,9 @@ public class IndexTestRussian {
     @Before
     public void setup() throws IOException {
         BufferedReader reader = new BufferedReader(new StringReader(TEST_STRING));
-        FileIndexCreator indexCreator = new FileIndexCreator();
-        indexCreator.createFromFile(reader, RUSSIAN_LOCALE);
-        trie = indexCreator.trie;
+        FileIndex index = new FileIndex();
+        index.createFromFile(reader, RUSSIAN_LOCALE);
+        trie = index.trie;
     }
 
     @Test

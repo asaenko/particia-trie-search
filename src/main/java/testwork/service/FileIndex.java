@@ -15,9 +15,9 @@ import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 
 import testwork.exception.ResourceNotFoundException;
-import testwork.index.LocaleIndexCreator;
+import testwork.index.LocaleIndex;
 
-public class FileIndexCreator implements LocaleIndexCreator {
+public class FileIndex implements LocaleIndex {
 
     public static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 

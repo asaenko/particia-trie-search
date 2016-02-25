@@ -19,7 +19,7 @@ public class IndexTestRussian {
 
     private static final String TEST_STRING = "!ав [ывапыва] ф-шг,   яавпвапвй. \n  Ёёявыапы ззапрап. ав";
 
-    private static final Locale RUSSIAN_LOCALE = new Locale("ru", "RU");;
+    private static final Locale RUSSIAN_LOCALE = new Locale("ru", "RU");
 
     private Trie<String, List<Long>> trie;
 

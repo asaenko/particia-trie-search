@@ -23,10 +23,12 @@ public class FileIndex implements LocaleIndex {
 
     protected Trie<String, List<Long>> trie = new PatriciaTrie<List<Long>>();
 
+    @Override
     public void create(String fileName) throws ResourceNotFoundException {
         create(fileName, DEFAULT_LOCALE);
     }
 
+    @Override
     public void create(String fileName, Locale locale) throws ResourceNotFoundException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             createFromFile(reader, locale);

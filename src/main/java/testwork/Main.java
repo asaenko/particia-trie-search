@@ -1,16 +1,15 @@
 package testwork;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.LocaleUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import testwork.exception.ResourceNotFoundException;
 
 public class Main {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
 
     public static void main(String[] args) {
         System.out.println("Arguments: \n 1) argument filename, 2) - word for position search (optional), 3) Locale (optional), default Locale.ENGLISH");
@@ -30,7 +29,7 @@ public class Main {
                 index.readIndex(filename);
             }
         } catch (ResourceNotFoundException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.severe(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
 

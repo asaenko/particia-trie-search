@@ -1,6 +1,6 @@
 package testwork;
 
-import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.LocaleUtils;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class Main {
         } else {
             word = "Присоединяется";
         }
-        List<Long> positions = index.getIndexesForWord(word);
+        Set<Integer> positions = index.getIndexesForWord(word);
         if (positions != null) {
             System.out.println("Word " + word + "  position: " + positions);
         } else {

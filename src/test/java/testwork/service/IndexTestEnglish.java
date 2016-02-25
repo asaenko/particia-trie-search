@@ -8,8 +8,8 @@ import static junit.framework.TestCase.assertNotNull;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.collections4.Trie;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class IndexTestEnglish {
 
     private static final String TEST_STRING = "!fd [addfgd] s-b,   fdgfd. \n  zzzD ojgdfgsd. fd";
 
-    private Trie<String, List<Long>> trie;
+    Trie<String, Set<Integer>> trie;
 
     @Before
     public void setup() throws IOException {
@@ -37,7 +37,7 @@ public class IndexTestEnglish {
 
     @Test
     public void testGetIndexForWord() {
-        assertEquals(new ArrayList<>(asList(20L)), trie.get("fdgfd"));
-        assertEquals(new ArrayList<>(asList(1L, 44L)), trie.get("fd"));
+        assertEquals(new HashSet<>(asList(20)), trie.get("fdgfd"));
+        assertEquals(new HashSet<>(asList(1, 44)), trie.get("fd"));
     }
 }

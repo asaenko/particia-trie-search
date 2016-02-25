@@ -7,9 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.BreakIterator;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
@@ -21,7 +21,7 @@ public class FileIndex implements LocaleIndex {
 
     public static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 
-    protected Trie<String, List<Long>> trie = new PatriciaTrie<List<Long>>();
+    protected Trie<String, Set<Integer>> trie = new PatriciaTrie<>();
 
     @Override
     public void create(String fileName) throws ResourceNotFoundException {
@@ -40,7 +40,7 @@ public class FileIndex implements LocaleIndex {
     public void createFromFile(BufferedReader reader, Locale locale) throws IOException {
         BreakIterator breakIterator = BreakIterator.getWordInstance(locale);
         String currentLine;
-        Long pos = 0L;
+        Integer pos = 0;
         int lastIndex;
         int firstIndex;
         while ((currentLine = reader.readLine()) != null) {
@@ -51,22 +51,22 @@ public class FileIndex implements LocaleIndex {
                 lastIndex = breakIterator.next();
                 if (lastIndex != BreakIterator.DONE && Character.isLetterOrDigit(currentLine.charAt(firstIndex))) {
                     String currentWord = currentLine.substring(firstIndex, lastIndex);
-                    putWordtoTrie(currentWord, pos+firstIndex);
+                    putWordToTrie(currentWord, pos + firstIndex);
                 }
             }
             pos += currentLine.length();
         }
     }
 
-    public List<Long> findWordPositions(String word) {
+    public Set<Integer> findWordPositions(String word) {
         return trie.get(word);
     }
 
-    private void putWordtoTrie(String key, Long pos) {
+    private void putWordToTrie(String key, Integer pos) {
         if (isNotBlank(key)) {
-            List<Long> index = trie.get(key);
+            Set<Integer> index = trie.get(key);
             if (index == null) {
-                trie.put(key,  new ArrayList<>(asList(pos)));
+                trie.put(key,  new HashSet<>(asList(pos)));
             } else {
                 index.add(pos);
                 trie.put(key, index);

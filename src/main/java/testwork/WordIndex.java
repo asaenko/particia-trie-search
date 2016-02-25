@@ -1,7 +1,7 @@
 package testwork;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import testwork.exception.ResourceNotFoundException;
 import testwork.index.LocaleIndex;
@@ -11,7 +11,7 @@ public class WordIndex {
 
     private LocaleIndex fileLocaleIndex = new FileIndex();
 
-    public List<Long> getIndexesForWord(String word) {
+    public Set<Integer> getIndexesForWord(String word) {
         return fileLocaleIndex.findWordPositions(word);
     }
 

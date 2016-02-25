@@ -7,9 +7,9 @@ import static junit.framework.TestCase.assertNotNull;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import org.apache.commons.collections4.Trie;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public class IndexTestRussian {
 
     private static final Locale RUSSIAN_LOCALE = new Locale("ru", "RU");
 
-    private Trie<String, List<Long>> trie;
+    Trie<String, Set<Integer>> trie;
 
     @Before
     public void setup() throws IOException {
@@ -39,7 +39,7 @@ public class IndexTestRussian {
 
     @Test
     public void testGetIndexForWord() {
-        assertEquals(new ArrayList<>(asList(44L)), trie.get("ззапрап"));
-        assertEquals(new ArrayList<>(asList(1L, 53L)), trie.get("ав"));
+        assertEquals(new HashSet<>(asList(44)), trie.get("ззапрап"));
+        assertEquals(new HashSet<>(asList(1, 53)), trie.get("ав"));
     }
 }

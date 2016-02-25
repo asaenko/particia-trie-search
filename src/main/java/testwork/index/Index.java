@@ -1,6 +1,6 @@
 package testwork.index;
 
-import java.util.List;
+import java.util.Set;
 
 import testwork.exception.ResourceNotFoundException;
 
@@ -20,5 +20,5 @@ public interface Index {
      * @param word
      * @return
      */
-    List<Long> findWordPositions(String word);
+    Set<Integer> findWordPositions(String word);
 }
